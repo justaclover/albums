@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "fc995cfd-f907-4b3d-9809-eb4090451f5c",
+		"name": "Альбомы 2.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39602160"
+	},
+	"item": [
+		{
+			"name": "Фотографии",
+			"item": [
+				{
+					"name": "Добавить фото",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "8a",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "mlamldaklfkl",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/just_clover/Desktop/Это всё нужно/Для открыток/серпантин 3.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api-albums/albums/1/photos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api-albums",
+								"albums",
+								"1",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменить фото",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "10a",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "mlamldaklfkl",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/just_clover/Desktop/Это всё нужно/Для открыток/тар1.png"
+								},
+								{
+									"key": "_method",
+									"value": "PATCH",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api-albums/albums/1/photos/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api-albums",
+								"albums",
+								"1",
+								"photos",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удалить фото",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8000/api-albums/albums/1/photos/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api-albums",
+								"albums",
+								"1",
+								"photos",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Список фото из одного альбома",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api-albums/albums/1/photos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api-albums",
+								"albums",
+								"1",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получить одно фото",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api-albums/albums/1/photos/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api-albums",
+								"albums",
+								"1",
+								"photos",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Добавить альбом",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "trdtdr",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "mlamldaklfkl",
+							"type": "text"
+						},
+						{
+							"key": "thumbnailImg",
+							"type": "file",
+							"src": "/C:/Users/just_clover/Desktop/Это всё нужно/Для открыток/НГ_2.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api-albums/albums",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-albums",
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Изменить альбом",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "888",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "mlamldaklfkl",
+							"type": "text"
+						},
+						{
+							"key": "thumbnailImg",
+							"type": "file",
+							"src": "/C:/Users/just_clover/Desktop/Это всё нужно/Для открыток/1.png"
+						},
+						{
+							"key": "_method",
+							"value": "PATCH",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api-albums/albums/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-albums",
+						"albums",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Удалить альбом",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8000/api-albums/albums/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-albums",
+						"albums",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Список альбомов",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api-albums/albums",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-albums",
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить один альбом",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api-albums/albums/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-albums",
+						"albums",
+						"7"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost/albums/public/api-albums",
+			"type": "string"
+		}
+	]
+}
