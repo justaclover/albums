@@ -40,6 +40,21 @@ class PhotoController extends Controller
             ]
         );
 
+        $photo = $album->photos()->updateOrCreate([
+            'title' => $request->title,
+        ], [
+            'description' => $request->description,
+            'image' => null,
+        ]);
+
+
+        $photo = $album->photos()->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image' => null,
+        ]);
+
+
         $photo = Photo::create(
             [
                 'album_id' => $album->id,
@@ -55,7 +70,7 @@ class PhotoController extends Controller
         $path = 'albums\photos/';
         $filename = $photo->id . "_" . "image" . "." . $extension;
         $file->move(public_path($path), $filename);
-        $photo->update(['image' => public_path($path).$filename]);
+        $photo->update(['image' => public_path($path) . $filename]);
 
         return response()->json([
             "data" => [
@@ -97,7 +112,7 @@ class PhotoController extends Controller
             $path = 'albums\photos/';
             $filename = $photo->id . "_" . "image" . "." . $extension;
             $file->move(public_path($path), $filename);
-            $photo->update(['image' => public_path($path).$filename]);
+            $photo->update(['image' => public_path($path) . $filename]);
         }
 
         $photo->update(

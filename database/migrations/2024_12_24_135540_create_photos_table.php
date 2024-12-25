@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Album;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,8 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('album_id')->constrained('albums')->cascadeOnDelete();
+            $table->foreignIdFor(Album::class)->constrained();
+            //$table->foreignId('album_id')->constrained('albums')->cascadeOnDelete();
             $table->string("title");
             $table->string("description");
             $table->string("image");

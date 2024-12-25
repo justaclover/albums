@@ -23,4 +23,9 @@ class Photo extends Model
         "description",
         "image"
     ];
+
+    public function album()
+    {
+        return $this->belongsTo(Album::class);
+    }
 }

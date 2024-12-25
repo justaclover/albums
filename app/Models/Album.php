@@ -20,4 +20,9 @@ class Album extends Model
         "description",
         "thumbnailImg"
     ];
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
 }

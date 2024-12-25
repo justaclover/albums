@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\File;
 
 class AlbumController extends Controller
 {
-    use AuthorizesRequests;
+    public function __construct()
+    {
+        $this->authorizeResource(Album::class, 'album');
+    }
 
     /**
      * Display a listing of the resource.
@@ -119,6 +122,6 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        $this->authorize('delete', $album);
+        return 'tset123';
     }
 }

@@ -45,7 +45,8 @@ class AlbumPolicy
      */
     public function delete(User $user, Album $album): bool
     {
-        dd("hello");
+        return true;
+        //dd("hello");
     }
 
     /**
