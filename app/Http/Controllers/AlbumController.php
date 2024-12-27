@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AlbumRequest;
 use App\Http\Resources\AlbumResource;
 use App\Models\Album;
+use App\Models\City;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -14,15 +15,15 @@ class AlbumController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(Album::class, 'album');
+        //$this->authorizeResource(Album::class, 'album');
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(City $city)
     {
-        return AlbumResource::collection(Album::query()->get());
+        return AlbumResource::collection($city->albums());
     }
 
     /**
@@ -36,9 +37,8 @@ class AlbumController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, City $city)
     {
-
         $request->validate(
             [
                 'title' => 'required|max:255',
@@ -47,29 +47,23 @@ class AlbumController extends Controller
             ]
         );
 
-        $album = Album::create(
+        $album = $city->albums()->updateOrCreate(
             [
                 'title' => $request->title,
                 'description' => $request->description,
-                'thumbnailImg' => null,
             ]
         );
 
         if ($request->has('thumbnailImg')) {
-            $file = $request->file('thumbnailImg');
-            $extension = $file->getClientOriginalExtension();
-
-            $path = 'albums\thumbnails/';
-            $filename = $album->id . "_" . "thumbnail" . "." . $extension;
-            $file->move(public_path($path), $filename);
-
-            $album->update(['thumbnailImg' => public_path($path) . $filename]);
+            $album->addMediaFromRequest('thumbnailImg')->toMediaCollection("albums");
         }
 
         return response()->json([
             "data" => [
+                "city_id" => $album->city_id,
                 "title" => $album->title,
                 "description" => $album->description,
+                "thumbnailImg" => $album->getMedia('albums')->last()->getUrl()
             ]
         ], 201);
     }
@@ -87,21 +81,6 @@ class AlbumController extends Controller
             ]
         );
 
-        if ($request->has('thumbnailImg')) {
-            if ($album->thumbnailImg != null) {
-                File::delete($album->thumbnailImg);
-            }
-
-            $file = $request->file('thumbnailImg');
-            $extension = $file->getClientOriginalExtension();
-
-            $path = 'albums\thumbnails/';
-
-            $filename = $album->id . "_" . "thumbnail" . "." . $extension;
-            $file->move(public_path($path), $filename);
-            $album->update(['thumbnailImg' => public_path($path) . $filename]);
-        }
-
         $album->update(
             [
                 'title' => $request->title,
@@ -109,10 +88,17 @@ class AlbumController extends Controller
             ]
         );
 
+        if ($request->has('thumbnailImg')) {
+            $album->getMedia('albums')->first()->delete();
+            $album->addMediaFromRequest('thumbnailImg')->toMediaCollection("albums");
+        }
+
         return response()->json([
             "data" => [
+                "city_id" => $album->city_id,
                 "title" => $album->title,
                 "description" => $album->description,
+                "thumbnailImg" => $album->getMedia('albums')->first()->getUrl()
             ]
         ]);
     }
@@ -122,6 +108,7 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        return 'tset123';
+        $album->delete();
+        return response()->noContent();
     }
 }

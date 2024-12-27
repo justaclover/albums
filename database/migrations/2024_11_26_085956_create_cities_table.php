@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('albums', function (Blueprint $table) {
-            $table->dropColumn('thumbnailImg');
-            $table->after('description', function ($table) {
-                $table->string('thumbnailImg')->nullable();
-            });
+        Schema::create('cities', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('cities');
     }
 };

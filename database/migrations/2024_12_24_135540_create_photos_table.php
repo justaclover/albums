@@ -18,8 +18,8 @@ return new class extends Migration
             //$table->foreignId('album_id')->constrained('albums')->cascadeOnDelete();
             $table->string("title");
             $table->string("description");
-            $table->string("image");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

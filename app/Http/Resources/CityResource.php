@@ -2,15 +2,16 @@
 
 namespace App\Http\Resources;
 
+use App\Models\City;
 use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin Photo
+ * @mixin City
  */
 
-class PhotoResource extends JsonResource
+class CityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,12 +22,10 @@ class PhotoResource extends JsonResource
     {
         self::$wrap = false;
         return [
-            "photo" => [
+            "city" => [
                 "id" => $this->id,
-                "album_id" => $this->album_id,
                 "title" => $this->title,
-                "description" => $this->description,
-                "image" => $this->getMedia('photos')[0]->getUrl(),
+                "thumbnailImg" => $this->getMedia('cities')[0]->getUrl(),
             ]
         ];
     }

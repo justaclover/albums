@@ -4,24 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use phpDocumentor\Reflection\File;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * @property int $id
  * @property int album_id
  * @property string title
  * @property string description
- * @property File image
  */
 
-class Photo extends Model
+class Photo extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
+    use SoftDeletes;
     protected $fillable = [
         "album_id",
         "title",
-        "description",
-        "image"
+        "description"
     ];
 
     public function album()

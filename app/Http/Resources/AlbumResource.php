@@ -25,7 +25,7 @@ class AlbumResource extends JsonResource
                 "id" => $this->id,
                 "title" => $this->title,
                 "description" => $this->description,
-                "thumbnailImg" => $this->thumbnailImg,
+                "thumbnailImg" => $this->getMedia('albums')[0]->getUrl(),
             ]
         ];
     }
