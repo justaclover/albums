@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AlbumRequest;
 use App\Http\Resources\AlbumResource;
+use App\Http\Resources\PhotoResource;
 use App\Models\Album;
 use App\Models\City;
+use App\Models\Photo;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Container\Attributes\Tag;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -110,5 +113,38 @@ class AlbumController extends Controller
     {
         $album->delete();
         return response()->noContent();
+    }
+
+    public function addTag(Request $request, Album $album)
+    {
+        $request->validate(['title' => 'required|max:255']);
+
+        $album->attachTag($request->title);
+        $album->photos()->each(function ($photo, $key) {
+            $photo->attachTag($photo->album->tags()->get()->last());
+        });
+        return response()->json([
+            "tags" => $album->tags()->get()->last()
+        ]);
+
+    }
+
+    public function getTags(Album $album)
+    {
+        return response()->json([
+            "tags" => $album->tags()->get()
+        ]);
+    }
+
+    public function removeTags(Request $request, Album $album)
+    {
+        $album->detachTags($request->tags);
+        foreach (PhotoResource::collection(Photo::where("album_id", $album->id)->get()) as $photo) {
+            $photo->detachTags($request->tags);
+        };
+
+        return response()->json([
+            "tags" => $album->tags()->get()
+        ]);
     }
 }

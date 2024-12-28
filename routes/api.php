@@ -31,7 +31,13 @@ Route::get('photo-restore/{photo}', fn(int $photo) => Photo::withTrashed()->wher
 Route::delete('photo-delete/{photo}', fn(int $photo) => Photo::withTrashed()->where('id', $photo)->first()->forceDelete());
 
 
+//Tags
+Route::post('albums/{album}/add-tag', [AlbumController::class, 'addTag']);
+Route::get('albums/{album}/get-tags', [AlbumController::class, 'getTags']);
+Route::post('albums/{album}/remove-tags', [AlbumController::class, 'removeTags']);
 
+Route::post('photos/{photo}/add-tag', [PhotoController::class, 'addTag']);
+Route::get('photos/{photo}/get-tags', [PhotoController::class, 'getTags']);
 
 Route::get('userDelete', fn() => User::findOrFail(1)->delete());
 

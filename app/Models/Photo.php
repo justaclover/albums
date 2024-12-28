@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use phpDocumentor\Reflection\File;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Tags\HasTags;
 
 /**
  * @property int $id
@@ -21,6 +22,7 @@ class Photo extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use SoftDeletes;
+    use HasTags;
     protected $fillable = [
         "album_id",
         "title",

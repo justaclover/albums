@@ -104,4 +104,31 @@ class PhotoController extends Controller
         $photo->delete();
         return response()->noContent();
     }
+
+    public function addTag(Request $request, Photo $photo)
+    {
+        $request->validate(['title' => 'required|max:255']);
+
+        $photo->attachTag($request->title);
+        return response()->json([
+            "tags" => $photo->tags()->get()->last()
+        ]);
+
+    }
+
+    public function getTags(Photo $photo)
+    {
+        return response()->json([
+            "tags" => $photo->tags()->get()
+        ]);
+    }
+
+    public function removeTags(Request $request, Photo $photo)
+    {
+        $photo->detachTags($request->tags);
+
+        return response()->json([
+            "tags" => $photo->tags()->get()
+        ]);
+    }
 }
