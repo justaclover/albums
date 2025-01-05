@@ -6,7 +6,10 @@ use App\Http\Resources\AlbumResource;
 use App\Http\Resources\PhotoResource;
 use App\Models\Album;
 use App\Models\Photo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
 
 class PhotoController extends Controller
@@ -14,7 +17,7 @@ class PhotoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Album $album)
+    public function index(Album $album): JsonResource
     {
         return PhotoResource::collection($album->photos());
     }
@@ -22,7 +25,7 @@ class PhotoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Album $album, Photo $photo)
+    public function show(Album $album, Photo $photo): JsonResource
     {
         return PhotoResource::make($album->photos()->find($photo->id));
     }
@@ -62,7 +65,7 @@ class PhotoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Album $album, Photo $photo)
+    public function update(Request $request, Album $album, Photo $photo): JsonResponse
     {
         $request->validate(
             [
@@ -99,13 +102,13 @@ class PhotoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Album $album, Photo $photo)
+    public function destroy(Album $album, Photo $photo): Response
     {
         $photo->delete();
         return response()->noContent();
     }
 
-    public function addTag(Request $request, Photo $photo)
+    public function addTag(Request $request, Photo $photo): JsonResponse
     {
         $request->validate(['title' => 'required|max:255']);
 
@@ -116,14 +119,14 @@ class PhotoController extends Controller
 
     }
 
-    public function getTags(Photo $photo)
+    public function getTags(Photo $photo): JsonResponse
     {
         return response()->json([
             "tags" => $photo->tags()->get()
         ]);
     }
 
-    public function removeTags(Request $request, Photo $photo)
+    public function removeTags(Request $request, Photo $photo): JsonResponse
     {
         $photo->detachTags($request->tags);
 

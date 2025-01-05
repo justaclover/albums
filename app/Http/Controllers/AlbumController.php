@@ -11,7 +11,10 @@ use App\Models\Photo;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Container\Attributes\Tag;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
 
 class AlbumController extends Controller
@@ -24,7 +27,7 @@ class AlbumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(City $city)
+    public function index(City $city): JsonResource
     {
         return AlbumResource::collection($city->albums());
     }
@@ -32,7 +35,7 @@ class AlbumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Album $album)
+    public function show(Album $album): JsonResource
     {
         return AlbumResource::make($album);
     }
@@ -40,7 +43,7 @@ class AlbumController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, City $city)
+    public function store(Request $request, City $city): JsonResponse
     {
         $request->validate(
             [
@@ -74,7 +77,7 @@ class AlbumController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Album $album)
+    public function update(Request $request, Album $album): JsonResponse
     {
         $request->validate(
             [
@@ -109,13 +112,13 @@ class AlbumController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Album $album)
+    public function destroy(Album $album): Response
     {
         $album->delete();
         return response()->noContent();
     }
 
-    public function addTag(Request $request, Album $album)
+    public function addTag(Request $request, Album $album): JsonResponse
     {
         $request->validate(['title' => 'required|max:255']);
 
@@ -129,14 +132,14 @@ class AlbumController extends Controller
 
     }
 
-    public function getTags(Album $album)
+    public function getTags(Album $album): JsonResponse
     {
         return response()->json([
             "tags" => $album->tags()->get()
         ]);
     }
 
-    public function removeTags(Request $request, Album $album)
+    public function removeTags(Request $request, Album $album): JsonResponse
     {
         $album->detachTags($request->tags);
         foreach (PhotoResource::collection(Photo::where("album_id", $album->id)->get()) as $photo) {

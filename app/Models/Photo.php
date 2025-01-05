@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use phpDocumentor\Reflection\File;
 use Spatie\MediaLibrary\HasMedia;
@@ -29,7 +30,7 @@ class Photo extends Model implements HasMedia
         "description"
     ];
 
-    public function album()
+    public function album(): BelongsTo
     {
         return $this->belongsTo(Album::class);
     }
