@@ -48,6 +48,7 @@ class CityController extends Controller
 
         return response()->json([
             "data" => [
+                "id" => $city->id,
                 "title" => $city->title,
                 "thumbnailImg" => $city->getMedia('cities')[0]->getUrl()
             ]
@@ -75,6 +76,7 @@ class CityController extends Controller
         }
         return response()->json([
             "data" => [
+                "id" => $city->id,
                 "title" => $city->title,
                 "thumbnailImg" => $city->getMedia('cities')->first()->getUrl()
             ]

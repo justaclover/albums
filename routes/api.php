@@ -38,8 +38,4 @@ Route::post('albums/{album}/remove-tags', [AlbumController::class, 'removeTags']
 
 Route::post('photos/{photo}/add-tag', [PhotoController::class, 'addTag']);
 Route::get('photos/{photo}/get-tags', [PhotoController::class, 'getTags']);
-
-Route::get('userDelete', fn() => User::findOrFail(1)->delete());
-
-Route::get('users', fn() => User::withTrashed()->get());
-Route::get('users/{user}', fn(int $user) => User::withTrashed()->where('id', $user)->first()->forceDelete());
+Route::post('photos/{photo}/remove-tags', [PhotoController::class, 'removeTags']);

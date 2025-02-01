@@ -19,17 +19,13 @@ use Illuminate\Support\Facades\File;
 
 class AlbumController extends Controller
 {
-    public function __construct()
-    {
-        //$this->authorizeResource(Album::class, 'album');
-    }
 
     /**
      * Display a listing of the resource.
      */
     public function index(City $city): JsonResource
     {
-        return AlbumResource::collection($city->albums());
+        return AlbumResource::collection($city->albums()->get());
     }
 
     /**
@@ -66,6 +62,7 @@ class AlbumController extends Controller
 
         return response()->json([
             "data" => [
+                "id" => $album->id,
                 "city_id" => $album->city_id,
                 "title" => $album->title,
                 "description" => $album->description,
@@ -101,6 +98,7 @@ class AlbumController extends Controller
 
         return response()->json([
             "data" => [
+                "id" => $album->id,
                 "city_id" => $album->city_id,
                 "title" => $album->title,
                 "description" => $album->description,

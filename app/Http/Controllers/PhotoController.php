@@ -19,7 +19,7 @@ class PhotoController extends Controller
      */
     public function index(Album $album): JsonResource
     {
-        return PhotoResource::collection($album->photos());
+        return PhotoResource::collection($album->photos()->get());
     }
 
     /**
@@ -54,6 +54,7 @@ class PhotoController extends Controller
 
         return response()->json([
             "data" => [
+                "id" => $photo->id,
                 "album_id" => $photo->album_id,
                 "title" => $photo->title,
                 "description" => $photo->description,
@@ -91,6 +92,7 @@ class PhotoController extends Controller
 
         return response()->json([
             "data" => [
+                "id" => $photo->id,
                 "album_id" => $photo->album_id,
                 "title" => $photo->title,
                 "description" => $photo->description,
